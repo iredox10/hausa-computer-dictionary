@@ -1,17 +1,19 @@
 import React from 'react'
+import { Link, useParams } from 'react-router-dom'
 
-export default function Main() {
-
+export default function Main({ data }) {
+  const {id} = useParams()
+  console.log(id)
   return (
-      <div className='bg-white min-h-screen rounded-tl-[30%] p-20'>
-          <h1>Rukunai</h1>
-          <div className='bg-primary-color p-3'>
-              <div>pic</div>
+    <Link to={`category/${data._id}`}>
+    <div className='bg-primary-color text-white p-3 flex justify-between '>
+      <div>pic</div>
               <div>
-                  <h1>head</h1>
-                  <p>text</p>
+        <h1 className='uppercase'>{ data.category}</h1>
+        <h1>{ data.category}</h1>
+                  <p>{data.desc}</p>
               </div>
-        </div>
-    </div>
+      </div>
+      </Link>
   )
 }
