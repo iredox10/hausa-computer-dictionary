@@ -48,10 +48,10 @@ export default function AddWord() {
       })
       console.log(res.data)
       setErr("")
-    //   setSuccessMsg("added ")
-    //   setTimeout(() => {
-    //     navigate(`/manage-terms/${id}`)
-    //   }, 3000)
+      setSuccessMsg("added ")
+      setTimeout(() => {
+        navigate(`/manage-words/${id}`)
+      }, 3000)
     } catch (err) {
       // setErr(err)
       console.log(err)

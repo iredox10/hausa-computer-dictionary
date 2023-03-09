@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Header from '../components/Header'
 import Menu from '../components/Menu'
 import Search from '../components/Search'
 import useFetch from '../hooks/UseFetch'
@@ -27,8 +28,8 @@ export default function Dictionary() {
   
 
   return (
-      <div className=''>
-          <Menu />
+      <div className='bg-primary-color h-min-screen'>
+          <Header />
           <Search placeholder={'Rubuta Kalma Anan...'} />
           <div className='mx-5 shadow-lg'>
         {words && words.map(word => (

@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useMemo, useState } from 'react'
+import { FaSearch } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Main from '../components/Main'
 import TextInput from '../components/TextInput'
@@ -14,9 +16,9 @@ export default function Home() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get('http://localhost:3003/categories')
+        const res = await axios.get('http://localhost:3003/get-categories')
         setData(res.data)
-        // console.log(data)
+        console.log(data)
       } catch (err) {
         seterr(err)
       }
@@ -25,11 +27,12 @@ export default function Home() {
   }, [])
 
   useMemo(() => {
-      setcategory([...data,data])
+    setcategory([...data, data])
   }, [data])
   return (
     <div>
       <Header />
+
       <div className='text-center text-white my-8'>
         <h1 className='uppercase text-2xl font-bold pb-3'>
           <span className='block'>barka da zuwa</span>
@@ -41,14 +44,17 @@ export default function Home() {
         </p>
       </div>
       <div className='bg-white min-h-screen rounded-tl-[30%] p-10'>
-        <div flex justify-end w-full>
-          <TextInput
+        <div className=' flex justify-center mb-5 w-full'>
+          {/* <TextInput
             type={"search"}
             name='search'
             style={"border-b-2 border-primary-color"}
-          />
+          /> */}
+          <Link to='/dictionary'>
+            <FaSearch className='text-center text-xl' />
+          </Link>
         </div>
-        <Title title={'Rukunai'} color='text-primary-color' />
+        <Title title={"Rukunai"} color='text-primary-color' />
         {data &&
           data.map((d) => (
             <div className='mb-3'>

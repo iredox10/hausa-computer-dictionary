@@ -2,6 +2,8 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Menu from "../components/Menu"
+import { FaBookmark, FaCopy, FaExclamationCircle, FaHistory, FaSearch, FaStar } from "react-icons/fa"
+
 
 export default function Word() {
   const { id } = useParams()
@@ -10,7 +12,7 @@ export default function Word() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get(`http://localhost:3003/word/${id}`)
+        const res = await axios.get(`http://localhost:3003/get-word/${id}`)
         setWord(res.data)
       } catch (err) {
         setErr(err)
@@ -25,7 +27,7 @@ export default function Word() {
       <Menu />
       <div>
         {word && (
-          <div className='relative m-10'>
+          <div className='relative mx-10 my-10 md:my-28'>
             <div className='bg-secondary-color pb-14 rounded-xl'>
               <div className='bg-white capitalize p-10 rounded-xl text-center'>
                 <p className=' text-primary-color font-bold text-4xl'>
@@ -35,8 +37,10 @@ export default function Word() {
                   {word.word} <span>({word.grammar})</span>
                 </p>
                 <p>
-                  {word.explanations.map((e) => (
+                  {word.explanations.map((e, i) => (
+                    <div key={i}>
                     <p>{e}</p>
+                    </div>
                   ))}
                 </p>
                 <p className='opacity-60 italic mt-5'>
@@ -44,17 +48,36 @@ export default function Word() {
                 </p>
               </div>
             </div>
-            <div className='absolute bottom-0 px-10 py-2 flex justify-between w-full'>
-              <button>link</button>
-              <button>link</button>
+            <div className='absolute bottom-0 px-10 py-5 flex justify-between w-full text-primary-color'>
+              <button>
+                <FaCopy  className="text-xl" />
+              </button>
+              <button>
+                <FaBookmark  className="text-xl"/>
+              </button>
             </div>
           </div>
         )}
       </div>
-      <div className='absolute bottom-0 p-4 bg-secondary-color w-full flex justify-around '>
-        <button>link1</button>
-        <button>link2</button>
-        <button>link3</button>
+      <div className='absolute bottom-0 p-4 bg-secondary-color w-full flex justify-around text-primary-color '>
+        <button className='flex flex-col items-center'>
+          <span className='bg-white  p-2 rounded-full'>
+            <FaSearch  />
+          </span>
+          <span>search</span>
+        </button>
+        <button className='flex flex-col items-center'>
+          <span className='bg-white  p-2 rounded-full'>
+            <FaHistory />
+            </span>
+            <span>history</span>
+        </button>
+        <button className='flex flex-col items-center'>
+          <span className='bg-white  p-2 rounded-full'>
+            <FaStar />
+            </span>
+          <span>favorite</span>
+        </button>
       </div>
     </div>
   )

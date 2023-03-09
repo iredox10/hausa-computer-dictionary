@@ -10,6 +10,7 @@ return (
       <h1></h1>
     </div>
     <div className='bg-white min-h-screen rounded-tl-[30%] p-10'>
+      
       <div className='mb-20'>
         <Title title={"login"} />
       </div>

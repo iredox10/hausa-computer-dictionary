@@ -1,0 +1,35 @@
+.menu{
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+.hamburger-menu{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: .1rem;
+    background: white;
+}
+.hamburger-menu::before{
+    content: '';
+    position: absolute;
+    width: 70%;
+    height: .1rem;
+    top: .5rem;
+    left: 0;
+    background: white;
+}
+.hamburger-menu::after{
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: .1rem;
+    top: 1rem;
+    left: 0;
+    background: white;
+}
+
+.hamburger-menu.open::before{
+    /* transform: ; */
+}
