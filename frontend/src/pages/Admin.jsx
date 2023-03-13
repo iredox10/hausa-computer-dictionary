@@ -1,5 +1,5 @@
 import axios from "axios"
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Button from "../components/Button"
 import CardTitle from "../components/CardTitle"
@@ -20,24 +20,30 @@ export default function Admin() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get("http://localhost:3003/categories")
+        const res = await axios.get("http://localhost:3003/get-categories")
         setCategories(res.data)
+        console.log(res.data)
       } catch (err) {
+        console.log(err)
         setErr(err)
       }
     }
     fetch()
   }, [])
-  useMemo(() => {const fetch = async () => {
-    try {
-      const res = await axios.get("http://localhost:3003/get-categories")
-      setCategories(res.data)
-    } catch (err) {
-      setErr(err)
-    }
-  }
-  fetch()
-  },[categories])
+  
+  // useCallback(() => {
+  //   const fetch = async () => {
+  //   try {
+  //     const res = await axios.get("http://localhost:3003/get-categories")
+  //     const data = res.data
+  //     setCategories(data)
+  //     console.log(categories)
+  //   } catch (err) {
+  //     setErr(err)
+  //   }
+  // }
+  // fetch()
+  // },[categories])
   
 
   const handleShowModel = () => {
@@ -50,6 +56,10 @@ export default function Admin() {
       const res = await axios.delete(
         `http://localhost:3003/delete-category/${categoryId}`
       )
+          const ress = await axios.get("http://localhost:3003/get-categories")
+          const data = ress.data
+          setCategories(data)
+          console.log(categories)
       setshowModel(false)
     } catch (err) {
       setErr(err)

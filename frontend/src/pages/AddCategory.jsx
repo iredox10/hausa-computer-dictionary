@@ -28,10 +28,8 @@ export default function AddCategory() {
       })
       console.log(res.status)
       setErr('')
-      setSuccessMsg('added ')
-      setTimeout(() => {
-        navigate("/admin")
-      },3000)
+      // setSuccessMsg('added ')
+      navigate("/admin")
     } catch (err) {
       setErr(err.response.data)
     }

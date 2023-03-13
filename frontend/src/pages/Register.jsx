@@ -7,7 +7,7 @@ import TextInput from "../components/TextInput"
 import Title from "./Title"
 
 export default function Register() {
-  const [fullName, setFullName] = useState("")
+  const [fullname, setFullname] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
@@ -17,27 +17,32 @@ export default function Register() {
     e.preventDefault()
     if (
       username === "" ||
-      fullName === "" ||
+      fullname === "" ||
       password === "" ||
       confirmPassword === ""
     ) {
       setError("please fill all the fields")
       return
     }
+    // else if(password === confirmPassword) {
+    //   setError('password did not match')
+    //   console.log(error)
+    //   return
+    // }
     try {
       const res = await axios.post("http://localhost:3003/user/register", {
-        fullName,
+        fullname,
         username,
         password,
       })
       console.log(res.data)
     } catch (error) {
-      console.log(error)
+      setError(error)
     }
   }
   return (
     <div>
-      {fullName}
+      {username}
       <div>
         <h1></h1>
       </div>
@@ -50,7 +55,7 @@ export default function Register() {
               name={"suna"}
               type={"text"}
               placeholder='cikakken suna'
-              state={(e) => setFullName(e.target.value)}
+              state={(e) => setFullname(e.target.value)}
             />
             <TextInput
               name={"suna"}
@@ -72,7 +77,7 @@ export default function Register() {
             />
           </div>
           <div className='text-center mt-20'>
-            <button>rejista</button>
+            <button type="submit">rejista</button>
             <p className='mt-4'>
               kana da account?{" "}
               <Link to={"/login"} className='underline text-primary-color'>

@@ -56,8 +56,8 @@ export default function Home() {
         </div>
         <Title title={"Rukunai"} color='text-primary-color' />
         {data &&
-          data.map((d) => (
-            <div className='mb-3'>
+          data.map((d,i) => (
+            <div className='mb-3' key={i}>
               <Main data={d} />
             </div>
           ))}

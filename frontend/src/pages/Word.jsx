@@ -3,12 +3,20 @@ import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Menu from "../components/Menu"
 import { FaBookmark, FaCopy, FaExclamationCircle, FaHistory, FaSearch, FaStar } from "react-icons/fa"
+import { UseAuthContext } from "../hooks/UseAuthContext"
 
 
 export default function Word() {
   const { id } = useParams()
   const [word, setWord] = useState()
+  const [favoriteWord, setFavoriteWord] = useState()
   const [err, setErr] = useState()
+
+  const { state } = UseAuthContext()
+  const user = state.user
+  const userId= user && user.user._id
+  // console.log(userId)
+
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -21,7 +29,22 @@ export default function Word() {
     }
     fetch()
   }, [])
-  console.log(word)
+  // console.log(word)
+
+  const addToFavorite = async (wordId) => {
+    try {
+      const word = await axios.get(`http://localhost:3003/get-word/${wordId}`)
+      if (word) {
+        setFavoriteWord(word)
+        // console.log(favoriteWord)
+      }
+      const user = await axios.post(`http://localhost:3003/user/add-favorite`, { favoriteWord,userId })
+      console.log(user.data)
+    } catch (err) {
+      
+    }
+  }
+
   return (
     <div className='h-full relative'>
       <Menu />
@@ -36,13 +59,13 @@ export default function Word() {
                 <p className='text-primary-color opacity-50 font-medium mt-3 mb-5'>
                   {word.word} <span>({word.grammar})</span>
                 </p>
-                <p>
+                <div>
                   {word.explanations.map((e, i) => (
                     <div key={i}>
                     <p>{e}</p>
                     </div>
                   ))}
-                </p>
+                </div>
                 <p className='opacity-60 italic mt-5'>
                   <span className='block'> misali:</span> {word.example}
                 </p>
@@ -52,7 +75,7 @@ export default function Word() {
               <button>
                 <FaCopy  className="text-xl" />
               </button>
-              <button>
+              <button onClick={() => addToFavorite(word._id)}>
                 <FaBookmark  className="text-xl"/>
               </button>
             </div>
@@ -60,7 +83,7 @@ export default function Word() {
         )}
       </div>
       <div className='absolute bottom-0 p-4 bg-secondary-color w-full flex justify-around text-primary-color '>
-        <button className='flex flex-col items-center'>
+        <button onClick={()=>addtoFavorite()} className='flex flex-col items-center'>
           <span className='bg-white  p-2 rounded-full'>
             <FaSearch  />
           </span>
