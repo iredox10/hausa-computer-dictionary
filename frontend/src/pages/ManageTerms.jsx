@@ -14,7 +14,6 @@ export default function ManageTerms() {
         console.log(data)
   return (
     <div>
-      <Menu />
       <Search placeholder={"duba kalma"} />
           <div>{data && data.terms.map(term => term).map(t => {
               {t}

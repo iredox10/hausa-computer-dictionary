@@ -15,12 +15,17 @@ import AddTerm from './pages/AddTerm'
 import AddWord from './pages/AddWord'
 import EditWord from './pages/EditWord'
 import { UseAuthContext } from './hooks/UseAuthContext'
+import Favorite from './pages/Favorite'
+import History from './pages/History'
+import Menu from './components/Menu'
+import Header from './components/Header'
 function App() {
   const {state} = UseAuthContext()
-  console.log(state.user)
+  const user = state.user
   return (
     <div className='bg-primary-color h-[100vh] '>
       <Router>
+        {user ? <Menu /> : <Header />}
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/rijista' element={<Register />} />
@@ -37,7 +42,10 @@ function App() {
           <Route path='/manage-terms/:id' element={<ManageTerms />} />
           <Route path='/add-term/:id' element={<AddTerm />} />
           <Route path='/add-word/:id' element={<AddWord />} />
-          <Route path='/edit-word/:id' element={<EditWord />}  />
+          <Route path='/edit-word/:id' element={<EditWord />} />
+          
+          <Route path='/favorite/:id' element={<Favorite />} />
+          <Route path='/history/:id' element={<History />} />
         </Routes>
       </Router>
     </div>

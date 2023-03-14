@@ -41,8 +41,7 @@ export default function AddTopic() {
           navigate(`/category/${id}`)
         }, 3000)
       } catch (err) {
-        // setErr(err)
-        console.log(err)
+        setErr(err)
       }
     }
 

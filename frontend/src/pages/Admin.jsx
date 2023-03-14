@@ -1,5 +1,6 @@
 import axios from "axios"
 import React, { useCallback, useEffect, useMemo, useState } from "react"
+import { FaPlus } from "react-icons/fa"
 import { Link, useNavigate } from "react-router-dom"
 import Button from "../components/Button"
 import CardTitle from "../components/CardTitle"
@@ -86,24 +87,34 @@ export default function Admin() {
       <div className='mx-4 grid grid-cols-2 gap-8'>
         {categories &&
           categories.map((category) => (
-              <div key={category._id} className='bg-secondary-color p-2'>
-                <CardTitle title={category.name} />
-                <p>{category.desc}</p>
+            <div key={category._id} className='bg-secondary-color p-2'>
+              <CardTitle title={category.name} />
+              <p>{category.desc}</p>
               <div className='flex items-center justify-between gap-3 mt-4'>
-                <button onClick={() => { 
-                  setCategoryId(category._id)
-                  handleShowModel()
-                }
-                } className='capitalize bg-white px-5 py-1'>delete</button>
-                  <Button
-                    link={`/category/${category._id}`}
-                    text={"manage"}
-                    style={"text-white px-5 py-1 block"}
-                  />
-                </div>
+                <button
+                  onClick={() => {
+                    setCategoryId(category._id)
+                    handleShowModel()
+                  }}
+                  className='capitalize bg-white px-5 py-1'
+                >
+                  delete
+                </button>
+                <Button
+                  link={`/category/${category._id}`}
+                  text={"manage"}
+                  style={"text-white px-5 py-1 block"}
+                />
               </div>
+            </div>
           ))}
-        {showModel && <Model remove={handleDelete} cancel={ handleCancel} />}
+        <Link
+          to={`/add-category`}
+          className='absolute right-4 bottom-5 p-2 text-primary-color bg-white text-2xl rounded-full hover:bg-primary-color hover:text-white hover:drop-shadow-xl'
+        >
+          <FaPlus className='' />
+        </Link>
+        {showModel && <Model remove={handleDelete} cancel={handleCancel} />}
       </div>
     </div>
   )

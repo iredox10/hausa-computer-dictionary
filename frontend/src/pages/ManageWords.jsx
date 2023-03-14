@@ -19,7 +19,6 @@ export default function ManageTerms() {
 
   const handleShowModel = () => {
     if (wordId === "") return
-    console.log(wordId)
     setShowModel(true)
   }
 
@@ -31,8 +30,7 @@ export default function ManageTerms() {
       console.log(res.data)
       setShowModel(false)
     } catch (err) {
-      console.log(err)
-      // setError(err)
+      setError(err)
     }
   }
 
@@ -41,7 +39,6 @@ export default function ManageTerms() {
   }
   return (
     <div>
-      <Menu />
       <Search placeholder={"duba kalma"} />
       <div>
         <Button

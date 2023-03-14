@@ -58,7 +58,6 @@ export default function Category() {
   }
   return (
     <div className='text-white'>
-      <Header />
       {category && (
         <div>
           <div className='text-center'>

@@ -28,10 +28,10 @@ function Login() {
       const isAdmin = res.data.user.isAdmin
       dispatch({ type: 'LOGIN', payload: data })
       localStorage.setItem('user', JSON.stringify(data))
-      if (!isAdmin) {
-        navigate('/dictionary')
-      } else {
+      if (isAdmin) {
         navigate('/admin')
+      } else {
+        navigate('/dictionary')
       }
       setError('')
     } catch (err) {

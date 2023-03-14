@@ -1,6 +1,6 @@
 import axios from "axios"
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
 import Menu from "../components/Menu"
 import { FaBookmark, FaCopy, FaExclamationCircle, FaHistory, FaSearch, FaStar } from "react-icons/fa"
 import { UseAuthContext } from "../hooks/UseAuthContext"
@@ -41,13 +41,29 @@ export default function Word() {
       const user = await axios.post(`http://localhost:3003/user/add-favorite`, { favoriteWord,userId })
       console.log(user.data)
     } catch (err) {
-      
+      console.log(err)
+    }
+  }
+
+  const navigate = useNavigate()
+  const viewHistory = () => {
+    if (user) {
+      navigate(`/history/${userId}`)
+    } else {
+      navigate('/login')
+    }
+  }
+
+  const viewFavorite = () => {
+    if (user) {
+      navigate(`/favorite/${userId}`)
+    } else {
+      navigate('/login')
     }
   }
 
   return (
     <div className='h-full relative'>
-      <Menu />
       <div>
         {word && (
           <div className='relative mx-10 my-10 md:my-28'>
@@ -82,20 +98,20 @@ export default function Word() {
           </div>
         )}
       </div>
-      <div className='absolute bottom-0 p-4 bg-secondary-color w-full flex justify-around text-primary-color '>
-        <button onClick={()=>addtoFavorite()} className='flex flex-col items-center'>
+      <div className='absolute bottom-[-1] p-4 bg-secondary-color w-full flex justify-around text-primary-color '>
+        <Link to={`/dictionary`} className='flex flex-col items-center'>
           <span className='bg-white  p-2 rounded-full'>
             <FaSearch  />
           </span>
           <span>search</span>
-        </button>
-        <button className='flex flex-col items-center'>
+        </Link>
+        <button onClick={viewHistory} className='flex flex-col items-center'>
           <span className='bg-white  p-2 rounded-full'>
             <FaHistory />
             </span>
             <span>history</span>
         </button>
-        <button className='flex flex-col items-center'>
+        <button onClick={viewFavorite} className='flex flex-col items-center'>
           <span className='bg-white  p-2 rounded-full'>
             <FaStar />
             </span>

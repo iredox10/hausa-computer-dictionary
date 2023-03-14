@@ -8,10 +8,8 @@ import Title from './Title'
 export default function Topic() {
     const { id } = useParams()
     const { data: topic, err } = useFetch(`http://localhost:3003/get-topic/${id}`)
-    console.log(topic)
   return (
     <div>
-      <Menu />
       {topic && (
         <div className='p-4'>
           <Title title={topic.name} color={'text-white text-2xl'} />

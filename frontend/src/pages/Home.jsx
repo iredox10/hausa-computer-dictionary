@@ -31,8 +31,6 @@ export default function Home() {
   }, [data])
   return (
     <div>
-      <Header />
-
       <div className='text-center text-white my-8'>
         <h1 className='uppercase text-2xl font-bold pb-3'>
           <span className='block'>barka da zuwa</span>
