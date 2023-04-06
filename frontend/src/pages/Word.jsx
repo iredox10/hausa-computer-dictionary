@@ -32,6 +32,7 @@ export default function Word() {
   // console.log(word)
 
   const addToFavorite = async (wordId) => {
+    !user && navigate('/login')
     try {
       const word = await axios.get(`http://localhost:3003/get-word/${wordId}`)
       if (word) {

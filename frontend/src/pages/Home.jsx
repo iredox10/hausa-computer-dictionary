@@ -36,9 +36,9 @@ export default function Home() {
           <span className='block'>barka da zuwa</span>
           <span>hausa computer dictionary</span>
         </h1>
-        <p className='px-20'>
+        <p className='px-20 capitalize'>
           zaka samu duka bayanan da suka danganci computer anan, cikin
-          saukakakkiyar hausa
+          saukakakkiyar hausa.
         </p>
       </div>
       <div className='bg-white min-h-screen rounded-tl-[30%] p-10'>

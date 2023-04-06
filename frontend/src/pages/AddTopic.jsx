@@ -37,9 +37,7 @@ export default function AddTopic() {
         console.log(res.data)
         setErr("")
         setSuccessMsg("added ")
-        setTimeout(() => {
           navigate(`/category/${id}`)
-        }, 3000)
       } catch (err) {
         setErr(err)
       }

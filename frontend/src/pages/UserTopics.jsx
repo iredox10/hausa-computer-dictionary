@@ -1,25 +1,21 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FaArrowRight, FaBookmark } from 'react-icons/fa'
-import { Link, useNavigate } from 'react-router-dom'
-import Header from '../components/Header'
-import Menu from '../components/Menu'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Search from '../components/Search'
 import { UseAuthContext } from '../hooks/UseAuthContext'
 import useFetch from '../hooks/UseFetch'
-import UseFetch from '../hooks/UseFetch'
-import Words from './Words'
 
-export default function Dictionary() {
-    // const [data, setData] = useState()
-  const [err, setErr] = useState()
+export default function UserTopics() {
   const [word, setWord] = useState()
   const [hausaSearch, setHausaSearch] = useState(false)
   const [englishSearch, setenglishSearch] = useState(false)
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("")
 
-
-  const { data:words, error } = useFetch('http://localhost:3003/get-words')
+  const { id } = useParams()
+  const { data, err } = useFetch(`http://localhost:3003/get-topic/${id}`)
+  const words = data && data.words
+  console.log(words)
 
   const { state } = UseAuthContext()
   const user = state.user
@@ -33,7 +29,10 @@ export default function Dictionary() {
       const word = await axios.get(`http://localhost:3003/get-word/${wordId}`)
       setWord(word.data)
       try {
-        const res = await axios.post('http://localhost:3003/user/add-history', { user, word })
+        const res = await axios.post("http://localhost:3003/user/add-history", {
+          user,
+          word,
+        })
         console.log(res.data)
         navigate(`/word/${wordId}`)
       } catch (err) {
@@ -41,11 +40,8 @@ export default function Dictionary() {
       }
     }
   }
-
-  // const handleSearch = 
-
   return (
-    <div className='bg-primary-color h-min-screen'>
+    <div>
       <Search
         englishSearch={englishSearch}
         setEnglishSearch={setenglishSearch}
@@ -69,7 +65,9 @@ export default function Dictionary() {
               ) {
                 return word
               } else if (englishSearch === false && hausaSearch === false) {
-                return word.wordInHausa.toLowerCase().includes(search.toLowerCase())
+                return word.wordInHausa
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
               }
             })
             .map((word) => (

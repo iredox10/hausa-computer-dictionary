@@ -73,7 +73,6 @@ export default function Admin() {
 
   return (
     <div>
-      <Header />
       <div className=''>
         <Title title={"Categories"} color='text-white' />
         <div className='flex justify-end p-4'>

@@ -19,6 +19,8 @@ import Favorite from './pages/Favorite'
 import History from './pages/History'
 import Menu from './components/Menu'
 import Header from './components/Header'
+import UserCategory from './pages/UserCategory'
+import UserTopics from './pages/UserTopics'
 function App() {
   const {state} = UseAuthContext()
   const user = state.user
@@ -46,6 +48,8 @@ function App() {
           
           <Route path='/favorite/:id' element={<Favorite />} />
           <Route path='/history/:id' element={<History />} />
+          <Route path='/user-category/:id' element={<UserCategory />} />
+          <Route path='/user-topic/:id' element={<UserTopics />} />
         </Routes>
       </Router>
     </div>
