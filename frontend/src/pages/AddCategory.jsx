@@ -7,8 +7,13 @@ import SubmitBtn from "../components/SubmitBtn"
 import SuccessMsg from "../components/SuccessMsg"
 import TextInput from "../components/TextInput"
 import Title from "./Title"
+import { UseAuthContext } from "../hooks/UseAuthContext"
 
 export default function AddCategory() {
+
+  const {state} = UseAuthContext()
+  const token = state.user && state.user.jwt
+ console.log(state.user,token)
   const navigate = useNavigate()
 
   const [name, setName] = useState("")
@@ -25,7 +30,7 @@ export default function AddCategory() {
       const res = await axios.post("http://localhost:3003/add-category", {
         name,
         desc,
-      })
+      },{headers:{Authorization:`Bearer ${token}`}})
       console.log(res.status)
       setErr('')
       // setSuccessMsg('added ')

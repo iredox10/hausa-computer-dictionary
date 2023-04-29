@@ -1,16 +1,21 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { UseAuthContext } from "./UseAuthContext"
+
 
 const useFetch = (url) => {
     const [data, setData] = useState()
     const [err, setErr] = useState()
+    const { state } = UseAuthContext()
+    const token = state.user && state.user.jwt
+    console.log(state.user, token)
     useEffect(() => {
         const fetch = async () => {
             try {
-                const res = await axios.get(url)
+                const res = await axios.get(url,{headers:{Authorization:`Bearer ${token}`}})
                 setData(res.data)
             } catch (err) {
-                setErr(err)
+                setErr(err.response.data)
             }
         }
         fetch()

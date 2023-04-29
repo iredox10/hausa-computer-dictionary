@@ -24,6 +24,8 @@ import UserTopics from './pages/UserTopics'
 function App() {
   const {state} = UseAuthContext()
   const user = state.user
+  // const isAdmin =  state.user.user.isAdmin
+  // console.log(isAdmin)
   return (
     <div className='bg-primary-color h-[100vh] '>
       <Router>
@@ -36,7 +38,7 @@ function App() {
           <Route path='/dictionary' element={<Dictionary />} />
           <Route path='/word/:id' element={<Word />} />
           
-          <Route path='/admin' element={<Admin />} />
+          <Route path='/admin' element={<Admin />}/> 
           <Route path='/add-category' element={<AddCategory />} />
           <Route path='/add-topic/:id' element={<AddTopic />} />
           <Route path='/manage-topic/:id' element={<Topic />} />

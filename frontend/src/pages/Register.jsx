@@ -1,10 +1,11 @@
 import axios from "axios"
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Button from "../components/Button"
 import ErrorMsg from "../components/Error"
 import TextInput from "../components/TextInput"
 import Title from "./Title"
+import { UseAuthContext } from "../hooks/UseAuthContext"
 
 export default function Register() {
   const [fullname, setFullname] = useState("")
@@ -12,6 +13,11 @@ export default function Register() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState()
+
+  const { dispatch } = UseAuthContext()
+
+
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -24,18 +30,22 @@ export default function Register() {
       setError("please fill all the fields")
       return
     }
-    // else if(password === confirmPassword) {
-    //   setError('password did not match')
-    //   console.log(error)
-    //   return
-    // }
+    else if(password !== confirmPassword) {
+      setError('password did not match')
+      console.log(error)
+      return
+    }
+    setError('')
     try {
       const res = await axios.post("http://localhost:3003/user/register", {
         fullname,
         username,
         password,
       })
-      console.log(res.data)
+      const data = res.data
+      dispatch({ type: "LOGIN", payload: data })
+      localStorage.setItem("user", JSON.stringify(data))
+      navigate('/')
     } catch (error) {
       setError(error)
     }

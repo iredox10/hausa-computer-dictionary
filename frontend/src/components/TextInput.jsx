@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function TextInput({placeholder,type,name,state,value}) {
+export default function TextInput({placeholder,type,name,state,value,ref}) {
   return (
     <div className='px-10 mb-7'>
       <input

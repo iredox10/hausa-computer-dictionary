@@ -8,20 +8,24 @@ import Header from "../components/Header"
 import Model from "../components/Model"
 import SubmitBtn from "../components/SubmitBtn"
 import Title from "./Title"
+import { UseAuthContext } from "../hooks/UseAuthContext"
 
 export default function Admin() {
-
   const navigate = useNavigate()
 
   const [categories, setCategories] = useState()
   const [err, setErr] = useState()
   const [showModel, setshowModel] = useState(false)
   const [categoryId, setCategoryId] = useState()
-
+  const { state } = UseAuthContext()
+  const token = state.user && state.user.jwt
+  console.log(state.user, token)
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get("http://localhost:3003/get-categories")
+        const res = await axios.get("http://localhost:3003/get-categories", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         setCategories(res.data)
         console.log(res.data)
       } catch (err) {
@@ -31,7 +35,7 @@ export default function Admin() {
     }
     fetch()
   }, [])
-  
+
   // useCallback(() => {
   //   const fetch = async () => {
   //   try {
@@ -45,22 +49,21 @@ export default function Admin() {
   // }
   // fetch()
   // },[categories])
-  
 
   const handleShowModel = () => {
-    if(categoryId === '') return 
+    if (categoryId === "") return
     setshowModel(true)
   }
 
-  const handleDelete = async ()  => {
+  const handleDelete = async () => {
     try {
       const res = await axios.delete(
         `http://localhost:3003/delete-category/${categoryId}`
       )
-          const ress = await axios.get("http://localhost:3003/get-categories")
-          const data = ress.data
-          setCategories(data)
-          console.log(categories)
+      const ress = await axios.get("http://localhost:3003/get-categories")
+      const data = ress.data
+      setCategories(data)
+      console.log(categories)
       setshowModel(false)
     } catch (err) {
       setErr(err)
@@ -75,13 +78,7 @@ export default function Admin() {
     <div>
       <div className=''>
         <Title title={"Categories"} color='text-white' />
-        <div className='flex justify-end p-4'>
-          <Button
-            link={"/add-category"}
-            text={"add-category"}
-            style='bg-white text-pimary-color px-4 py-1'
-          />
-        </div>
+        <div className='flex justify-end p-4'></div>
       </div>
       <div className='mx-4 grid grid-cols-2 gap-8'>
         {categories &&

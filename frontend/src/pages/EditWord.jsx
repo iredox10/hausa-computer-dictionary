@@ -11,48 +11,49 @@ import Title from "./Title"
 export default function EditWord() {
     const { id } = useParams()
   const navigate = useNavigate()
-
     
   const { data, err: error } = useFetch("http://localhost:3003/get-word/" + id)
-  console.log(data)
-    
-  const [word, setWord] = useState()
+  const w = data && data.word
+  const wexp = data && data.explanations
+  const wh = data && data.wordInHausa
+  const g = data && data.grammar
+  const eg = data && data.example
+  
+  const [word, setWord] = useState('')
   const [wordInHausa, setWordInHausa] = useState("")
   const [grammar, setGrammar] = useState("")
   const [explanations, setExplanations] = useState([])
   const [example, setExample] = useState("")
   const [err, setErr] = useState("")
   const [successMsg, setSuccessMsg] = useState("")
-
   const explanation = useRef()
+  
+  console.log(word)
 
   // setWord(data && data.word)
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       if (
-        word === "" ||
-        wordInHausa === "" ||
-        example === "" ||
-        grammar === "" ||
+        word === "" &&
+        wordInHausa === "" &&
+        example === "" &&
+        grammar === "" &&
         explanations.length === 0
       ) {
-        setErr("please fill all the fields")
+        setErr("please fill the necessary field(s)")
         return
       }
-      const res = await axios.post(`http://localhost:3003/add-word/${id}`, {
-        word,
-        wordInHausa,
-        grammar,
-        example,
-        explanations,
+      const res = await axios.patch(`http://localhost:3003/edit-word/${id}`, {
+        word: word === '' ? w : word,
+        wordInHausa: wordInHausa === '' ? wh : wordInHausa,
+        explanations: explanations.length === 0 ? wexp : explanations,
+        grammar: grammar === '' ? g : grammar,
+        example: example === '' ? eg : example,
       })
+      navigate(-1)
       console.log(res.data)
       setErr("")
-      //   setSuccessMsg("added ")
-      //   setTimeout(() => {
-      //     navigate(`/manage-terms/${id}`)
-      //   }, 3000)
     } catch (err) {
       // setErr(err)
       console.log(err)
@@ -71,45 +72,55 @@ export default function EditWord() {
     setExplanations([...newList])
   }
 
+  // const handleEdit = (e) => {
+  //   let { name, value } = e.target
+  //   value = ''
+  //   setWord(e.target.value)
+  //   value = word
+  //   // console.log('name', name)
+  //   console.log('value', value)
+    
+  // }
+
   return (
-      <div>
-          {word}
+    <div>
       <div className='bg-white min-h-screen rounded-tl-[30%] p-10'>
         <Title title={`edit ${data && data.word}`} />
         <form onSubmit={handleSubmit}>
           {err && <ErrorMsg msg={err} />}
           {successMsg && <SuccessMsg msg={successMsg} />}
           <div>
+            {word}
             <TextInput
               name={"word"}
               type={"text"}
-              placeholder='word'
-              value={word}
+              placeholder={data && data.word}
+              // value={}
               state={(e) => setWord(e.target.value)}
             />
             <TextInput
               name={"wordInHausa"}
               type={"text"}
-              placeholder='word in hausa'
+              placeholder={data && data.wordInHausa}
               state={(e) => setWordInHausa(e.target.value)}
             />
             <TextInput
               name={"grammar"}
               type={"text"}
-              placeholder='grammar'
+              placeholder={data && data.grammar}
               state={(e) => setGrammar(e.target.value)}
             />
             <TextInput
               name={"example"}
               type={"text"}
-              placeholder='misali'
+              placeholder={data && data.example}
               state={(e) => setExample(e.target.value)}
             />
             <div className='px-10 mb-7'>
               <textarea
                 name='explanation'
                 id='explanation'
-                placeholder='rubuta explanation...'
+                placeholder={data && data.explanations}
                 className='outline-none border-b-2 border-primary-color  w-full capitalize'
                 ref={explanation}
               ></textarea>
