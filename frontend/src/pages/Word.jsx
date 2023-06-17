@@ -64,61 +64,61 @@ export default function Word() {
   }
 
   return (
-    <div className='h-full relative'>
-      <div>
-        {word && (
-          <div className='relative mx-10 my-10 md:my-28'>
-            <div className='bg-secondary-color pb-14 rounded-xl'>
-              <div className='bg-white capitalize p-10 rounded-xl text-center'>
-                <p className=' text-primary-color font-bold text-4xl'>
-                  {word.wordInHausa}
-                </p>
-                <p className='text-primary-color opacity-50 font-medium mt-3 mb-5'>
-                  {word.word} <span>({word.grammar})</span>
-                </p>
-                <div>
-                  {word.explanations.map((e, i) => (
-                    <div key={i}>
-                    <p>{e}</p>
-                    </div>
-                  ))}
+      <div >
+        <div>
+          {word && (
+            <div className='relative mx-10 my-15 md:my-28'>
+              <div className='bg-secondary-color pb-14 rounded-xl'>
+                <div className='bg-white capitalize p-10 rounded-xl text-center'>
+                  <p className=' text-primary-color font-bold text-4xl'>
+                    {word.wordInHausa}
+                  </p>
+                  <p className='text-primary-color opacity-50 font-medium mt-3 mb-5'>
+                    {word.word} <span>({word.grammar})</span>
+                  </p>
+                  <div>
+                    {word.explanations.map((e, i) => (
+                      <div key={i}>
+                        <p>{e}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className='opacity-60 italic mt-5'>
+                    <span className='block'> misali:</span> {word.example}
+                  </p>
                 </div>
-                <p className='opacity-60 italic mt-5'>
-                  <span className='block'> misali:</span> {word.example}
-                </p>
+              </div>
+              <div className='absolute bottom-0 px-10 py-5 flex justify-between w-full text-primary-color'>
+                <button>
+                  <FaCopy className='text-xl' />
+                </button>
+                <button onClick={() => addToFavorite(word._id)}>
+                  <FaBookmark className='text-xl' />
+                </button>
               </div>
             </div>
-            <div className='absolute bottom-0 px-10 py-5 flex justify-between w-full text-primary-color'>
-              <button>
-                <FaCopy  className="text-xl" />
-              </button>
-              <button onClick={() => addToFavorite(word._id)}>
-                <FaBookmark  className="text-xl"/>
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-      <div className='absolute bottom-[-1] p-4 bg-secondary-color w-full flex justify-around text-primary-color '>
-        <Link to={`/dictionary`} className='flex flex-col items-center'>
-          <span className='bg-white  p-2 rounded-full'>
-            <FaSearch  />
-          </span>
-          <span>search</span>
-        </Link>
-        <button onClick={viewHistory} className='flex flex-col items-center'>
-          <span className='bg-white  p-2 rounded-full'>
-            <FaHistory />
+          )}
+        </div>
+        <div className='absolute bottom-0 p-4 bg-secondary-color w-full flex justify-around text-primary-color '>
+          <Link to={`/dictionary`} className='flex flex-col items-center'>
+            <span className='bg-white  p-2 rounded-full'>
+              <FaSearch />
             </span>
-            <span>history</span>
-        </button>
-        <button onClick={viewFavorite} className='flex flex-col items-center'>
-          <span className='bg-white  p-2 rounded-full'>
-            <FaStar />
+            <span className='capitalize font-bold'>search</span>
+          </Link>
+          <button onClick={viewHistory} className='flex flex-col items-center'>
+            <span className='bg-white  p-2 rounded-full'>
+              <FaHistory />
             </span>
-          <span>favorite</span>
-        </button>
+            <span className='capitalize font-bold'>history</span>
+          </button>
+          <button onClick={viewFavorite} className='flex flex-col items-center'>
+            <span className='bg-white  p-2 rounded-full'>
+              <FaStar />
+            </span>
+            <span className='capitalize font-bold'>favorite</span>
+          </button>
+        </div>
       </div>
-    </div>
   )
 }

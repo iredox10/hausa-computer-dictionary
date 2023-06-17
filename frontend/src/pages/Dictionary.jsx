@@ -42,8 +42,6 @@ export default function Dictionary() {
     }
   }
 
-  // const handleSearch = 
-
   return (
     <div className='bg-primary-color h-min-screen'>
       <Search

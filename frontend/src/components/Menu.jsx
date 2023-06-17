@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import '../style.css'
-import { FaAccessibleIcon, FaArrowCircleLeft, FaArrowLeft, FaBackward, FaHistory, FaHome, FaSignOutAlt, FaStar, FaTimes } from "react-icons/fa"
+import {  FaHistory,  FaSignOutAlt, FaStar, FaUser } from "react-icons/fa"
 import { Link, useNavigate } from "react-router-dom"
 import { UseAuthContext } from "../hooks/UseAuthContext"
 
@@ -11,7 +11,10 @@ export default function Menu() {
     hamburgerMenu.classList.add('open')
     console.log(hamburgerMenu)
   }
-  const { dispatch } = UseAuthContext()
+  const { dispatch, state } = UseAuthContext()
+  console.log(state.user.user.username)
+  const userId = state.user.user._id
+  console.log(userId)
   const navigate = useNavigate()
   const handleLogout = async () => {
     dispatch({ type: 'LOGOUT' })
@@ -36,15 +39,27 @@ export default function Menu() {
         <div className='hamburger-menu'></div>
       </div>
       {toggle && (
-        <div className='absolute p-3 h-full w-3/4 bg-primary-color shadow-2xl right-0 top-20 z-10'>
-          <div className='flex items-center mb-5 gap-4 capitalize text-2xl hover:bg-secondary-color'>
+        <div className='absolute p-3 h-80 w-3/4 bg-primary-color drop-shadow-2xl right-0 top-20 z-10'>
+          <div
+            className='flex items-center justify-center mb-5 gap-4 capitalize text-2xl text-center'
+          >
+            <FaUser />
+            <p>{state.user.user.username} </p>
+          </div>
+          <Link
+            to={`/favorite/${userId}`}
+            className='flex items-center mb-5 gap-4 capitalize text-2xl hover:bg-secondary-color'
+          >
             <FaStar />
             <p>favorite words</p>
-          </div>
-          <div className='flex items-center gap-4 capitalize text-2xl hover:bg-secondary-color'>
+          </Link>
+          <Link
+            to={`/history/${userId}`}
+            className='flex items-center mb-5 gap-4 capitalize text-2xl hover:bg-secondary-color'
+          >
             <FaHistory />
-            <button>favorite words</button>
-          </div>
+            <button>history</button>
+          </Link>
           <div className='flex items-center gap-4 capitalize text-2xl hover:bg-secondary-color'>
             <FaSignOutAlt />
             <button onClick={handleLogout}>log out</button>

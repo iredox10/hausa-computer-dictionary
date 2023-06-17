@@ -59,8 +59,8 @@ export default function Register() {
       <form onSubmit={handleSubmit}>
         <div className='bg-white min-h-screen rounded-tl-[30%] p-10'>
           <Title title={"Rijista"} />
-          <ErrorMsg msg={error} />
-          <div>
+          {error && <ErrorMsg msg={error} />}
+          <div className="mt-5">
             <TextInput
               name={"suna"}
               type={"text"}
@@ -86,12 +86,12 @@ export default function Register() {
               state={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-          <div className='text-center mt-20'>
-            <button type="submit">rejista</button>
+          <div className='text-center mt-10 capitalize' >
+            <button type="submit" className="capitalize text-xl bg-primary-color text-white py-1 px-4 rounded-lg">rejista</button>
             <p className='mt-4'>
               kana da account?{" "}
               <Link to={"/login"} className='underline text-primary-color'>
-                login
+              <span className="hover:bg-primary-color hover:text-white p-1"> login </span>
               </Link>
             </p>
           </div>

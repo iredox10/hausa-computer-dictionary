@@ -20,7 +20,8 @@ export default function Home() {
         setData(res.data)
         console.log(data)
       } catch (err) {
-        seterr(err)
+        seterr(err.message.name)
+        console.log(err)
       }
     }
     fetch()
@@ -41,7 +42,7 @@ export default function Home() {
           saukakakkiyar hausa.
         </p>
       </div>
-      <div className='bg-white min-h-screen rounded-tl-[30%] p-10'>
+      <div className='bg-secondary-color min-h-screen rounded-tl-[30%] p-10'>
         <div className=' flex justify-center mb-5 w-full'>
           {/* <TextInput
             type={"search"}
@@ -53,6 +54,8 @@ export default function Home() {
           </Link>
         </div>
         <Title title={"Rukunai"} color='text-primary-color' />
+        {data.length === 0 && <div>loading...</div>}
+        {/* {err && <div>{}</div>} */}
         {data &&
           data.map((d,i) => (
             <div className='mb-3' key={i}>

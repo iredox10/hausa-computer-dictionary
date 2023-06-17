@@ -6,6 +6,7 @@ import ErrorMsg from "../components/Error"
 import TextInput from "../components/TextInput"
 import { UseAuthContext } from "../hooks/UseAuthContext"
 import Title from "./Title"
+import SocialMediaLinks from "../components/SocialMediaLinks"
 
 function Login() {
   const [username, setUsername] = useState('')
@@ -48,7 +49,7 @@ return (
         <Title title={"login"} />
       </div>
       <form onSubmit={handleSubmit}>
-        <ErrorMsg msg={error} />
+        {error && <ErrorMsg msg={error} />}
         <div>
           <TextInput name={"username"} type={"text"} placeholder='username'  state={(e) => setUsername(e.target.value)}/>
           <TextInput
@@ -58,19 +59,20 @@ return (
             state={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className='text-center mt-20'>
-          <button type="submit">login</button>
+        <div className='text-center mt-10 capitalize'>
+          <button type="submit" className="capitalize text-lg bg-primary-color text-white py-1 font-bold px-20 rounded-lg">login</button>
         </div>
             </form>
-          <p className='mt-4 text-center'>
+          <p className='mt-4 text-center capitalize'>
             baka da account?
             <Link
               to={"/rijista"}
-              className='underline text-primary-color capitalize'
+              className='underline  text-primary-color'
             >
-              rijista
+             <span className="hover:bg-primary-color hover:text-white p-1"> rijista </span>
             </Link>
           </p>
+    <SocialMediaLinks />
     </div>
   </div>
 )
