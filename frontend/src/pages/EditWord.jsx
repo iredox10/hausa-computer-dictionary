@@ -1,5 +1,5 @@
 import axios from "axios"
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import ErrorMsg from "../components/Error"
 import SubmitBtn from "../components/SubmitBtn"
@@ -9,17 +9,17 @@ import useFetch from "../hooks/UseFetch"
 import Title from "./Title"
 
 export default function EditWord() {
-    const { id } = useParams()
+  const { id } = useParams()
   const navigate = useNavigate()
-    
+
   const { data, err: error } = useFetch("http://localhost:3003/get-word/" + id)
   const w = data && data.word
   const wexp = data && data.explanations
   const wh = data && data.wordInHausa
   const g = data && data.grammar
   const eg = data && data.example
-  
-  const [word, setWord] = useState('')
+  console.log(w)
+  const [word, setWord] = useState("")
   const [wordInHausa, setWordInHausa] = useState("")
   const [grammar, setGrammar] = useState("")
   const [explanations, setExplanations] = useState([])
@@ -27,7 +27,13 @@ export default function EditWord() {
   const [err, setErr] = useState("")
   const [successMsg, setSuccessMsg] = useState("")
   const explanation = useRef()
-  
+  useEffect(() => {
+    setTimeout(() => {
+      setWord((word) => null)
+      console.log(word)
+      // setWordInHausa('')
+    }, 1000)
+  }, [])
   console.log(word)
 
   // setWord(data && data.word)
@@ -45,11 +51,11 @@ export default function EditWord() {
         return
       }
       const res = await axios.patch(`http://localhost:3003/edit-word/${id}`, {
-        word: word === '' ? w : word,
-        wordInHausa: wordInHausa === '' ? wh : wordInHausa,
+        word: word === "" ? w : word,
+        wordInHausa: wordInHausa === "" ? wh : wordInHausa,
         explanations: explanations.length === 0 ? wexp : explanations,
-        grammar: grammar === '' ? g : grammar,
-        example: example === '' ? eg : example,
+        grammar: grammar === "" ? g : grammar,
+        example: example === "" ? eg : example,
       })
       navigate(-1)
       console.log(res.data)
@@ -79,29 +85,40 @@ export default function EditWord() {
   //   value = word
   //   // console.log('name', name)
   //   console.log('value', value)
-    
+
   // }
 
+  const handleChange = (e) => {
+    setWord(e.target.value)
+  }
   return (
     <div>
-      <div className='bg-white min-h-screen rounded-tl-[30%] p-10'>
+      <div className="bg-white min-h-screen rounded-tl-[30%] p-10">
         <Title title={`edit ${data && data.word}`} />
         <form onSubmit={handleSubmit}>
           {err && <ErrorMsg msg={err} />}
           {successMsg && <SuccessMsg msg={successMsg} />}
           <div>
-            {word}
-            <TextInput
+            <input
+              type="text"
+              value={word}
+              onChange={handleChange}
+            />
+            {/* <TextInput
               name={"word"}
               type={"text"}
-              placeholder={data && data.word}
-              // value={}
-              state={(e) => setWord(e.target.value)}
-            />
+              // placeholder={data && data.word}
+              defaulValue={data && data.word}
+              value={data ? data.word : ''}
+              // state={(e) => setWord(e.target.value)}
+              state={handleChange}
+            /> */}
             <TextInput
               name={"wordInHausa"}
               type={"text"}
               placeholder={data && data.wordInHausa}
+              // value={data && data.wordInHausa}
+              defaulValue={data && data.wordInHausa}
               state={(e) => setWordInHausa(e.target.value)}
             />
             <TextInput
@@ -116,25 +133,31 @@ export default function EditWord() {
               placeholder={data && data.example}
               state={(e) => setExample(e.target.value)}
             />
-            <div className='px-10 mb-7'>
+            <div className="px-10 mb-7">
               <textarea
-                name='explanation'
-                id='explanation'
+                name="explanation"
+                id="explanation"
                 placeholder={data && data.explanations}
-                className='outline-none border-b-2 border-primary-color  w-full capitalize'
+                className="outline-none border-b-2 border-primary-color  w-full capitalize"
                 ref={explanation}
               ></textarea>
-              <button type='button' onClick={addExplanation}>
+              <button
+                type="button"
+                onClick={addExplanation}
+              >
                 add explanation
               </button>
               <div>
                 {explanations &&
                   explanations.map((e, i) => (
-                    <div className='flex gap-4' key={i}>
-                      <div className='flex gap-4'>
+                    <div
+                      className="flex gap-4"
+                      key={i}
+                    >
+                      <div className="flex gap-4">
                         <p>{e}</p>
                         <button
-                          type='button'
+                          type="button"
                           onClick={() => removeExplanation(i)}
                         >
                           remove
@@ -145,8 +168,11 @@ export default function EditWord() {
               </div>
             </div>
           </div>
-          <div className='text-center mt-20'>
-            <SubmitBtn text='edit word' style={"px-10 py-2 text-white"} />
+          <div className="text-center mt-20">
+            <SubmitBtn
+              text="edit word"
+              style={"px-10 py-2 text-white"}
+            />
           </div>
         </form>
       </div>

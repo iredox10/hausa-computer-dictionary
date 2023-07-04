@@ -10,6 +10,7 @@ const useFetch = (url) => {
     const token = state.user && state.user.jwt
     console.log(state.user, token)
     useEffect(() => {
+        const cancelTokenSource = axios.CancelToken.source
         const fetch = async () => {
             try {
                 const res = await axios.get(url,{headers:{Authorization:`Bearer ${token}`}})
@@ -19,6 +20,7 @@ const useFetch = (url) => {
             }
         }
         fetch()
+        return () => axios.get(url,{cancelTokens:cancelTokenSource})
     }, [])
     return {data,err}
 }
