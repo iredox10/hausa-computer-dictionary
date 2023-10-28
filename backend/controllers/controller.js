@@ -15,7 +15,7 @@ export const home = async (req, res) => {
 
 export const words = async (req, res) => {
   try {
-    const words = await Word.find().sort({ wordInHausa: -1 })
+    const words = await Word.find().sort({ wordInHausa: 1 })
     res.json(words)
   } catch (error) {
     res.json(error)
