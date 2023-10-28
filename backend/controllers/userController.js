@@ -1,7 +1,7 @@
 import User from "../models/user.js"
 import Word from "../models/word.js"
 import jwt from "jsonwebtoken"
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 
 const token = (id,isAdmin) => {
   return jwt.sign({ id: id , isAdmin:isAdmin}, "secret-key",{expiresIn:'1d'})
@@ -53,13 +53,15 @@ export const add_to_favorite = async (req, res) => {
     const favoriteWordId = req.body.favoriteWord.data._id
     const word = await Word.findOne({ _id: favoriteWordId })
     const user = await User.findOne({ _id: req.body.userId })
-//  add filter functuin
-    // const userWord = history.filter((w) => w._id == req.body.word.data._id)
-    
+
+    const uw = user.favorite.find(fw => fw._id == favoriteWordId)
+    if(uw){
+      return
+    }else{
       user.favorite.push(word)
       user.save()
-      res.status(200).json(user)
-
+    }
+      res.status(200).json({user: user.favorite})
   } catch (error) {
     res.json(error)
   }

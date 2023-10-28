@@ -4,7 +4,7 @@ import { FaArrowRight, FaBookmark } from 'react-icons/fa'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Search from '../components/Search'
 import { UseAuthContext } from '../hooks/UseAuthContext'
-import useFetch from '../hooks/UseFetch'
+import useFetch from '../hooks/useFetch'
 
 export default function UserTopics() {
   const [word, setWord] = useState()

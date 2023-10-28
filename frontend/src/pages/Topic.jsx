@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Card from '../components/Card'
 import Menu from '../components/Menu'
-import useFetch from '../hooks/UseFetch'
+import useFetch from '../hooks/useFetch'
 import Title from './Title'
 
 export default function Topic() {

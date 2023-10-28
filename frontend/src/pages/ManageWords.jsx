@@ -6,7 +6,7 @@ import Menu from "../components/Menu"
 import Model from "../components/Model"
 import Search from "../components/Search"
 import SubmitBtn from "../components/SubmitBtn"
-import useFetch from "../hooks/UseFetch"
+import useFetch from "../hooks/useFetch"
 
 export default function ManageTerms() {
   const { id } = useParams()

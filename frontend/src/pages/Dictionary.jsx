@@ -6,9 +6,8 @@ import Header from '../components/Header'
 import Menu from '../components/Menu'
 import Search from '../components/Search'
 import { UseAuthContext } from '../hooks/UseAuthContext'
-import useFetch from '../hooks/UseFetch'
-import UseFetch from '../hooks/UseFetch'
 import Words from './Words'
+import useFetch from '../hooks/useFetch'
 
 export default function Dictionary() {
     // const [data, setData] = useState()

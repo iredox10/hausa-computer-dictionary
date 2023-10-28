@@ -5,7 +5,7 @@ import ErrorMsg from '../components/Error'
 import SubmitBtn from '../components/SubmitBtn'
 import SuccessMsg from '../components/SuccessMsg'
 import TextInput from '../components/TextInput'
-import useFetch from '../hooks/UseFetch'
+import useFetch from '../hooks/useFetch'
 import Title from './Title'
 
 export default function AddWord() {

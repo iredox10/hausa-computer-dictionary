@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Main from '../components/Main'
 import TextInput from '../components/TextInput'
-import UseFetch from '../hooks/UseFetch'
+import UseFetch from '../hooks/useFetch'
 import Title from './Title'
 
 export default function Home() {
@@ -54,8 +54,8 @@ export default function Home() {
           </Link>
         </div>
         <Title title={"Rukunai"} color='text-primary-color' />
-        {data.length === 0 && <div>loading...</div>}
-        {/* {err && <div>{}</div>} */}
+        {data.length === 0 && <div>no words</div>}
+        {err && <div>{err}</div>}
         {data &&
           data.map((d,i) => (
             <div className='mb-3' key={i}>

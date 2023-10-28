@@ -5,8 +5,8 @@ import Button from "../components/Button"
 import Header from "../components/Header"
 import Menu from "../components/Menu"
 import Model from "../components/Model"
-import useFetch from "../hooks/UseFetch"
-import UseFetch from "../hooks/UseFetch"
+import UseFetch from "../hooks/useFetch"
+import useFetch from "../hooks/useFetch"
 
 export default function Category() {
 

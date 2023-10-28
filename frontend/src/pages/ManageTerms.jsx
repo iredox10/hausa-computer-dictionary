@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import Button from '../components/Button'
 import Menu from '../components/Menu'
 import Search from '../components/Search'
-import useFetch from '../hooks/UseFetch'
+import useFetch from '../hooks/useFetch'
 import Word from './Words'
 
 export default function ManageTerms() {
