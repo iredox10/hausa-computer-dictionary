@@ -11,6 +11,8 @@ export default function Word() {
   const [word, setWord] = useState()
   const [favoriteWord, setFavoriteWord] = useState()
   const [err, setErr] = useState()
+  const [cpword, setCpword] = useState()
+  const [cpexplanatios, setCpexplanatios] = useState()
 
   const { state } = UseAuthContext()
   const user = state.user
@@ -63,6 +65,17 @@ export default function Word() {
     }
   }
 
+  const handleCopy = async (word,explanations)=>{
+    setCpword(word)
+    setCpexplanatios(explanations)
+    try {
+      const cp = await navigator.clipboard.writeText(explanations)
+      console.log('word copied')
+    } catch (err) {
+      console.log('error in copying word',err)
+    }
+  }
+
   return (
       <div >
         <div>
@@ -89,7 +102,7 @@ export default function Word() {
                 </div>
               </div>
               <div className='absolute bottom-0 px-10 py-5 flex justify-between w-full text-primary-color'>
-                <button>
+                <button onClick={() => handleCopy(word.word,word.explanations)}>
                   <FaCopy className='text-xl' />
                 </button>
                 <button onClick={() => addToFavorite(word._id)}>
