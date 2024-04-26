@@ -89,7 +89,7 @@ export default function Category() {
                           <Button
                             text={`manage ${topic.name}`}
                             link={`/manage-topic/${topic._id}`}
-                            style={`px-4 py-1 block`}
+                          style={`px-4 py-1 block`}
                           />
                           <button
                             onClick={() => {
