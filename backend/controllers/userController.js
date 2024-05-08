@@ -14,7 +14,8 @@ export const register = async (req, res) => {
     const hashPassword = await bcrypt.hash(req.body.password, 10);
     const matchUser = await User.findOne({ username: req.body.username });
     if (matchUser) {
-      res.statu(404).json("user already exist!!");
+      res.status(404).json("user already exist!!");
+      return
     }
     const user = await User.create({
       fullname: req.body.fullname,
@@ -23,13 +24,13 @@ export const register = async (req, res) => {
       isAdmin: req.body.isAdmin,
     });
     const jwt = token(user._id);
-    res.json({ user, jwt });
+    res.status(201).json({ user, jwt });
   } catch (error) {
     if (error.code === 11000 && error.keyValue.username) {
       res.status(404).json(`username already exist!`);
       return;
     }
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 };
 
