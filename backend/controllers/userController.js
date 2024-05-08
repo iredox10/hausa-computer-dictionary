@@ -23,7 +23,7 @@ export const register = async (req, res) => {
       res.status(400).json(`username already exist!`)
       return
     }
-    res.json(error)
+    res.status(500).json(error)
   }
 }
 
@@ -40,7 +40,7 @@ export const login = async (req, res) => {
         const jwt = token(user._id, user.isAdmin)
         res.status(200).json({ user, jwt })
       } else {
-        res.status(403).json("password did not match")
+        res.status(404).json("password did not match")
       }
     })
   } catch (err) {

@@ -12,10 +12,9 @@ export default function Menu() {
     console.log(hamburgerMenu)
   }
   const { dispatch, state } = UseAuthContext()
-  console.log(state.user.user.username)
-  const userId = state.user.user._id
-  console.log(userId)
+  const userId = state && state.user.user._id
   const navigate = useNavigate()
+
   const handleLogout = async () => {
     dispatch({ type: 'LOGOUT' })
     localStorage.setItem('user', '')
@@ -39,7 +38,7 @@ export default function Menu() {
         <div className='hamburger-menu'></div>
       </div>
       {toggle && (
-        <div className='absolute p-3 h-80 w-3/4 bg-primary-color drop-shadow-2xl right-0 top-20 z-10'>
+        <div className='absolute p-3 h-80 w-1/4 bg-primary-color drop-shadow-2xl right-0 top-20 z-10'>
           <div
             className='flex items-center justify-center mb-5 gap-4 capitalize text-2xl text-center'
           >

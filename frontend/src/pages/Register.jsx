@@ -49,12 +49,11 @@ export default function Register() {
       localStorage.setItem("user", JSON.stringify(data))
       navigate('/')
     } catch (error) {
-      setError(error)
+      setError(error.response.data)
     }
   }
   return (
     <div>
-      {username}
       <div>
         <h1></h1>
       </div>
