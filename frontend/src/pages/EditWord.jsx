@@ -7,18 +7,19 @@ import SuccessMsg from "../components/SuccessMsg"
 import TextInput from "../components/TextInput"
 import useFetch from "../hooks/useFetch"
 import Title from "./Title"
+import { path } from "../utils/path"
 
 export default function EditWord() {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { data, err: error } = useFetch("http://localhost:3003/get-word/" + id)
+  const { data, err: error } = useFetch(`${path}/get-word/` + id)
   const w = data && data.word
   const wexp = data && data.explanations
   const wh = data && data.wordInHausa
   const g = data && data.grammar
   const eg = data && data.example
-  console.log(w)
+
   const [word, setWord] = useState("")
   const [wordInHausa, setWordInHausa] = useState("")
   const [grammar, setGrammar] = useState("")
@@ -36,7 +37,6 @@ export default function EditWord() {
   }, [])
   console.log(word)
 
-  // setWord(data && data.word)
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -50,7 +50,7 @@ export default function EditWord() {
         setErr("please fill the necessary field(s)")
         return
       }
-      const res = await axios.patch(`http://localhost:3003/edit-word/${id}`, {
+      const res = await axios.patch(`${path}/edit-word/${id}`, {
         word: word === "" ? w : word,
         wordInHausa: wordInHausa === "" ? wh : wordInHausa,
         explanations: explanations.length === 0 ? wexp : explanations,
@@ -78,15 +78,6 @@ export default function EditWord() {
     setExplanations([...newList])
   }
 
-  // const handleEdit = (e) => {
-  //   let { name, value } = e.target
-  //   value = ''
-  //   setWord(e.target.value)
-  //   value = word
-  //   // console.log('name', name)
-  //   console.log('value', value)
-
-  // }
 
   const handleChange = (e) => {
     setWord(e.target.value)

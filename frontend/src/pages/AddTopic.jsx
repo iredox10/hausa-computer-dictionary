@@ -8,6 +8,7 @@ import TextInput from '../components/TextInput'
 import useFetch from '../hooks/useFetch'
 
 import Title from './Title'
+import { path } from '../utils/path'
 
 export default function AddTopic() {
 
@@ -20,7 +21,7 @@ export default function AddTopic() {
     const [err, setErr] = useState("")
     const [successMsg, setSuccessMsg] = useState("")
 
-    const { data, err: error } = useFetch('http://localhost:3003/get-category/' + id)
+    const { data, err: error } = useFetch(`${path}/get-category/` + id)
 
 
     const handleSubmit = async (e) => {
@@ -30,7 +31,7 @@ export default function AddTopic() {
           setErr("please fill all the fields")
           return
         }
-        const res = await axios.post(`http://localhost:3003/add-topic/${id}`, {
+        const res = await axios.post(`/${path}/add-topic/${id}`, {
           name,
           desc,
         })

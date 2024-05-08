@@ -3,14 +3,15 @@ import { Link, useParams } from 'react-router-dom'
 import Menu from '../components/Menu'
 import useFetch from '../hooks/useFetch'
 import Title from './Title'
+import { path } from '../utils/path'
 export default function Favorite() {
     const { id } = useParams()
-    const { data, err } = useFetch(`http://localhost:3003/user/view-favorite/${id}`)
+    const { data, err } = useFetch(`${path}/user/view-favorite/${id}`)
     const favorites = data && data.favorite
     console.log(favorites)
   return (
       <div>
-          <Title title={`favoite words`} />
+          <Title title={`favorite words`}  color={`text-white`}/>
           {favorites && favorites.map((favorite,i) => (
               <div key={i} className='bg-secondary-color mb-3'>
               <Link to={`/word/${history._id}`}>

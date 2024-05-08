@@ -3,11 +3,12 @@ import { Link, useParams } from 'react-router-dom'
 import Menu from '../components/Menu'
 import useFetch from '../hooks/useFetch'
 import Title from './Title'
+import { path } from '../utils/path'
 
 export default function History() {
   const { id } = useParams()
   const { data, err } = useFetch(
-    `http://localhost:3003/user/view-favorite/${id}`
+    `${path}/user/view-favorite/${id}`
   )
   const histories = data && data.history
   return (

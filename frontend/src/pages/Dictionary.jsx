@@ -8,6 +8,7 @@ import Search from '../components/Search'
 import { UseAuthContext } from '../hooks/UseAuthContext'
 import Words from './Words'
 import useFetch from '../hooks/useFetch'
+import { path } from '../utils/path'
 
 export default function Dictionary() {
     // const [data, setData] = useState()
@@ -18,7 +19,8 @@ export default function Dictionary() {
   const [search, setSearch] = useState('')
 
 
-  const { data:words, error } = useFetch('http://localhost:3003/get-words')
+  const { data:words, error } = useFetch(`${path}/get-words`)
+  // const { data:words, error } = useFetch('http://localhost:3003/get-words')
 
   const { state } = UseAuthContext()
   const user = state.user
@@ -29,10 +31,11 @@ export default function Dictionary() {
     !user && navigate(`/word/${wordId}`)
     if (user) {
       // console.log(user)
-      const word = await axios.get(`http://localhost:3003/get-word/${wordId}`)
+      const word = await axios.get(`${path}/get-word/${wordId}`)
       setWord(word.data)
       try {
-        const res = await axios.post('http://localhost:3003/user/add-history', { user, word })
+        const res = await axios.post(`${path}/user/add-history`, { user, word })
+        // const res = await axios.post('http://localhost:3003/user/add-history', { user, word })
         console.log(res.data)
         navigate(`/word/${wordId}`)
       } catch (err) {

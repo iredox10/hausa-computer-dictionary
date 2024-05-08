@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import Search from '../components/Search'
 import { UseAuthContext } from '../hooks/UseAuthContext'
 import useFetch from '../hooks/useFetch'
+import { path } from '../utils/path'
 
 export default function UserTopics() {
   const [word, setWord] = useState()
@@ -13,7 +14,7 @@ export default function UserTopics() {
   const [search, setSearch] = useState("")
 
   const { id } = useParams()
-  const { data, err } = useFetch(`http://localhost:3003/get-topic/${id}`)
+  const { data, err } = useFetch(`${path}/get-topic/${id}`)
   const words = data && data.words
   console.log(words)
 
@@ -26,7 +27,7 @@ export default function UserTopics() {
     !user && navigate(`/word/${wordId}`)
     if (user) {
       // console.log(user)
-      const word = await axios.get(`http://localhost:3003/get-word/${wordId}`)
+      const word = await axios.get(`${path}/get-word/${wordId}`)
       setWord(word.data)
       try {
         const res = await axios.post("http://localhost:3003/user/add-history", {

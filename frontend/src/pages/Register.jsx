@@ -6,6 +6,7 @@ import ErrorMsg from "../components/Error"
 import TextInput from "../components/TextInput"
 import Title from "./Title"
 import { UseAuthContext } from "../hooks/UseAuthContext"
+import { path } from "../utils/path"
 
 export default function Register() {
   const [fullname, setFullname] = useState("")
@@ -37,7 +38,8 @@ export default function Register() {
     }
     setError('')
     try {
-      const res = await axios.post("http://localhost:3003/user/register", {
+      const res = await axios.post(`${path}/user/register`, {
+      // const res = await axios.post("http://localhost:3003/user/register", {
         fullname,
         username,
         password,

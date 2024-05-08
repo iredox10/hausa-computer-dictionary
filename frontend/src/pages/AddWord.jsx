@@ -7,6 +7,7 @@ import SuccessMsg from '../components/SuccessMsg'
 import TextInput from '../components/TextInput'
 import useFetch from '../hooks/useFetch'
 import Title from './Title'
+import { path } from '../utils/path'
 
 export default function AddWord() {
   const { id } = useParams()
@@ -24,7 +25,7 @@ export default function AddWord() {
 
   const explanation = useRef()
 
-  const { data, err: error } = useFetch("http://localhost:3003/get-topic/" + id)
+  const { data, err: error } = useFetch(`${path}/get-topic/` + id)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -39,7 +40,7 @@ export default function AddWord() {
         setErr("please fill all the fields")
         return
       }
-      const res = await axios.post(`http://localhost:3003/add-word/${id}`, {
+      const res = await axios.post(`${path}/add-word/${id}`, {
         word,
         wordInHausa,
         grammar,

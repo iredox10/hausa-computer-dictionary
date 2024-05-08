@@ -8,6 +8,7 @@ import SuccessMsg from "../components/SuccessMsg"
 import TextInput from "../components/TextInput"
 import Title from "./Title"
 import { UseAuthContext } from "../hooks/UseAuthContext"
+import { path } from "../utils/path"
 
 export default function AddCategory() {
 
@@ -27,7 +28,7 @@ export default function AddCategory() {
         setErr("please fill all the fields")
         return
       }
-      const res = await axios.post("http://localhost:3003/add-category", {
+      const res = await axios.post(`${path}/add-category`, {
         name,
         desc,
       },{headers:{Authorization:`Bearer ${token}`}})

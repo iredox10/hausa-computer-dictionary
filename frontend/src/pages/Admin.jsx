@@ -9,6 +9,7 @@ import Model from "../components/Model"
 import SubmitBtn from "../components/SubmitBtn"
 import Title from "./Title"
 import { UseAuthContext } from "../hooks/UseAuthContext"
+import { path } from "../utils/path"
 
 export default function Admin() {
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ export default function Admin() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get("http://localhost:3003/get-categories", {
+        const res = await axios.get(`/${path}/get-categories`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         setCategories(res.data)
@@ -36,19 +37,6 @@ export default function Admin() {
     fetch()
   }, [])
 
-  // useCallback(() => {
-  //   const fetch = async () => {
-  //   try {
-  //     const res = await axios.get("http://localhost:3003/get-categories")
-  //     const data = res.data
-  //     setCategories(data)
-  //     console.log(categories)
-  //   } catch (err) {
-  //     setErr(err)
-  //   }
-  // }
-  // fetch()
-  // },[categories])
 
   const handleShowModel = () => {
     if (categoryId === "") return
@@ -58,9 +46,9 @@ export default function Admin() {
   const handleDelete = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:3003/delete-category/${categoryId}`
+        `/${path}/delete-category/${categoryId}`
       )
-      const ress = await axios.get("http://localhost:3003/get-categories")
+      const ress = await axios.get(`${path}/get-categories`)
       const data = ress.data
       setCategories(data)
       console.log(categories)

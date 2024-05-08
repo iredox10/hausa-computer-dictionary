@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom"
 import Menu from "../components/Menu"
 import { FaBookmark, FaCopy, FaExclamationCircle, FaHistory, FaSearch, FaStar } from "react-icons/fa"
 import { UseAuthContext } from "../hooks/UseAuthContext"
+import { path } from "../utils/path"
 
 
 export default function Word() {
@@ -22,7 +23,8 @@ export default function Word() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get(`http://localhost:3003/get-word/${id}`)
+        const res = await axios.get(`${path}/get-word/${id}`)
+        // const res = await axios.get(`http://localhost:3003/get-word/${id}`)
         setWord(res.data)
       } catch (err) {
         setErr(err)
@@ -31,17 +33,16 @@ export default function Word() {
     }
     fetch()
   }, [])
-  // console.log(word)
 
   const addToFavorite = async (wordId) => {
     !user && navigate('/login')
     try {
-      const word = await axios.get(`http://localhost:3003/get-word/${wordId}`)
+      const word = await axios.get(`${path}/get-word/${wordId}`)
       if (word) {
         setFavoriteWord(word)
         // console.log(favoriteWord)
       }
-      const user = await axios.post(`http://localhost:3003/user/add-favorite`, { favoriteWord,userId })
+      const user = await axios.post(`/${path}/user/add-favorite`, { favoriteWord,userId })
       console.log(user.data)
     } catch (err) {
       console.log(err)

@@ -4,10 +4,11 @@ import Card from '../components/Card'
 import Menu from '../components/Menu'
 import useFetch from '../hooks/useFetch'
 import Title from './Title'
+import { path } from '../utils/path'
 
 export default function Topic() {
     const { id } = useParams()
-    const { data: topic, err } = useFetch(`http://localhost:3003/get-topic/${id}`)
+    const { data: topic, err } = useFetch(`${path}/get-topic/${id}`)
   return (
     <div>
       {topic && (

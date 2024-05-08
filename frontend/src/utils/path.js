@@ -1,0 +1,1 @@
+export const path = 'https://computer-hausa-dictionary-backend.onrender.com'

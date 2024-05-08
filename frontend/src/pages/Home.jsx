@@ -7,6 +7,7 @@ import Main from '../components/Main'
 import TextInput from '../components/TextInput'
 import UseFetch from '../hooks/useFetch'
 import Title from './Title'
+import { path } from '../utils/path'
 
 export default function Home() {
   const [data, setData] = useState([])
@@ -16,7 +17,8 @@ export default function Home() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get('http://localhost:3003/get-categories')
+        const res = await axios.get(`${path}/get-categories`)
+        // const res = await axios.get('http://localhost:3003/get-categories')
         setData(res.data)
         console.log(data)
       } catch (err) {

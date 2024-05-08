@@ -5,11 +5,12 @@ import Menu from '../components/Menu'
 import Search from '../components/Search'
 import useFetch from '../hooks/useFetch'
 import Word from './Words'
+import { path } from '../utils/path'
 
 export default function ManageTerms() {
     const { id } = useParams()
         const { data, err } = useFetch(
-          `http://localhost:3003/get-topic/${id}`
+          `${path}/get-topic/${id}`
         )
         console.log(data)
   return (

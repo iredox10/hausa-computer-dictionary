@@ -4,11 +4,12 @@ import Button from "../components/Button"
 import CardTitle from "../components/CardTitle"
 import useFetch from "../hooks/useFetch"
 import Title from "./Title"
+import { path } from "../utils/path"
 
 export default function UserCategory() {
   const { id } = useParams()
   const { data: category, err } = useFetch(
-    `http://localhost:3003/get-category/${id}`
+    `${path}/get-category/${id}`
   )
   console.log(category)
   return (

@@ -7,6 +7,7 @@ import Menu from "../components/Menu"
 import Model from "../components/Model"
 import UseFetch from "../hooks/useFetch"
 import useFetch from "../hooks/useFetch"
+import { path } from "../utils/path"
 
 export default function Category() {
 
@@ -16,22 +17,9 @@ export default function Category() {
 
   const [showModel, setshowModel] = useState(false)
 
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     try {
-  //       const res = await axios.get(`http://localhost:3003/get-category/${id}`)
-  //       setCategory(res.data)
-  //       console.log(data)
-  //     } catch (err) {
-  //       setErr(err)
-  //       // console.log(err)
-  //     }
-  //   }
-  //   fetch()
-  // }, [])
 
-
-  const {data:category,err:error} = useFetch(`http://localhost:3003/get-category/${id}`)
+  const {data:category,err:error} = useFetch(`${path}/get-category/${id}`)
+  // const {data:category,err:error} = useFetch(`http://localhost:3003/get-category/${id}`)
   console.log(category && category)
 
   const handleShowModel = () => {
@@ -43,7 +31,8 @@ export default function Category() {
   const handleDelete = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:3003/delete-topic/${topicId}`
+        `${path}/delete-topic/${topicId}`
+        // `http://localhost:3003/delete-topic/${topicId}`
       )
       console.log(res.data)
       setshowModel(false)

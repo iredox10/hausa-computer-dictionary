@@ -7,11 +7,11 @@ import Model from "../components/Model"
 import Search from "../components/Search"
 import SubmitBtn from "../components/SubmitBtn"
 import useFetch from "../hooks/useFetch"
+import { path } from "../utils/path"
 
 export default function ManageTerms() {
   const { id } = useParams()
-  const { data, err } = useFetch(`http://localhost:3003/get-topic/${id}`)
-  // console.log(data)
+  const { data, err } = useFetch(`${path}/get-topic/${id}`)
 
   const [showModel, setShowModel] = useState(false)
   const [wordId, setwordId] = useState()
@@ -25,9 +25,8 @@ export default function ManageTerms() {
   const handleDelete = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:3003/delete-word/${id}`
+        `${path}/delete-word/${id}`
       )
-      console.log(res.data)
       setShowModel(false)
     } catch (err) {
       setError(err)
