@@ -31,7 +31,7 @@ export default function AddTopic() {
           setErr("please fill all the fields")
           return
         }
-        const res = await axios.post(`/${path}/add-topic/${id}`, {
+        const res = await axios.post(`${path}/add-topic/${id}`, {
           name,
           desc,
         })
