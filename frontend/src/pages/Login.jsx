@@ -26,7 +26,6 @@ function Login() {
     }
     try {
       const res = await axios.post(`${path}/user/login`, { username, password })
-      // const res = await axios.post('http://localhost:3003/user/login', { username, password })
       const data = res.data
       const isAdmin = res.data.user.isAdmin
       dispatch({ type: 'LOGIN', payload: data })

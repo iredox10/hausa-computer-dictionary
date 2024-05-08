@@ -45,6 +45,10 @@ export default function Register() {
         password,
       })
       const data = res.data
+      if(res.status != 201){
+        setError('error')
+        return
+      }
       dispatch({ type: "LOGIN", payload: data })
       localStorage.setItem("user", JSON.stringify(data))
       navigate('/')
