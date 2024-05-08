@@ -14,6 +14,7 @@ export default function Register() {
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState()
+  const [loading, setLoading] = useState(false)
 
   const { dispatch } = UseAuthContext()
 
@@ -38,6 +39,7 @@ export default function Register() {
     }
     setError('')
     try {
+      setLoading(true)
       const res = await axios.post(`${path}/user/register`, {
       // const res = await axios.post("http://localhost:3003/user/register", {
         fullname,
@@ -46,9 +48,11 @@ export default function Register() {
       })
       const data = res.data
       if(res.status != 201){
-        setError('error')
+        // setError(res.data)
+        console.log(res);
         return
       }
+      setLoading(false)
       dispatch({ type: "LOGIN", payload: data })
       localStorage.setItem("user", JSON.stringify(data))
       navigate('/')
@@ -92,7 +96,7 @@ export default function Register() {
             />
           </div>
           <div className='text-center mt-10 capitalize' >
-            <button type="submit" className="capitalize text-xl bg-primary-color text-white py-1 px-4 rounded-lg">rejista</button>
+            <button type="submit" className="capitalize text-xl bg-primary-color text-white py-1 px-4 rounded-lg">{loading? 'Loading...': 'Rijista'}</button>
             <p className='mt-4'>
               kana da account?{" "}
               <Link to={"/login"} className='underline text-primary-color'>
