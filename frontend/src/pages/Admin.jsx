@@ -24,7 +24,7 @@ export default function Admin() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get(`/${path}/get-categories`, {
+        const res = await axios.get(`${path}/get-categories`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         setCategories(res.data)
