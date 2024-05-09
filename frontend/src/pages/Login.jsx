@@ -13,6 +13,7 @@ function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState()
+  const [loading, setLoading] = useState(false);
 
   const { dispatch } = UseAuthContext()
   
@@ -25,6 +26,7 @@ function Login() {
       return
     }
     try {
+      setLoading(true)
       const res = await axios.post(`${path}/user/login`, { username, password })
       const data = res.data
       const isAdmin = res.data.user.isAdmin
@@ -36,8 +38,10 @@ function Login() {
         navigate('/dictionary')
       }
       setError('')
+      setLoading(false)
     } catch (err) {
       setError(err.response.data)
+      setLoading(false)
     }
   }
 return (
@@ -69,7 +73,7 @@ return (
               to={"/rijista"}
               className='underline  text-primary-color'
             >
-             <span className="hover:bg-primary-color hover:text-white p-1"> rijista </span>
+             <span className="hover:bg-primary-color hover:text-white p-1">{loading ? 'loading....' : Login}</span>
             </Link>
           </p>
     <SocialMediaLinks />

@@ -15,7 +15,7 @@ export default function Search({ placeholder, setEnglishSearch, setHausaSearch, 
         <input
           type='text'
           className=' px-2 w-full'
-          placeholder={englishSearch ? 'search for word' : 'Rubuta kalma...'}
+          placeholder={englishSearch ? 'Type Word...' : 'Rubuta kalma...'}
           onChange={onSearch}
         />
       </div>

@@ -30,7 +30,7 @@ export const add_word = async (req, res) => {
     topic.save()
     res.json(word)
   } catch (error) {
-    res.json(error)
+    res.json(error.message)
   }
 }
 export const edit_word = async (req, res) => {

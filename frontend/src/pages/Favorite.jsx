@@ -14,7 +14,7 @@ export default function Favorite() {
           <Title title={`favorite words`}  color={`text-white`}/>
           {favorites && favorites.map((favorite,i) => (
               <div key={i} className='bg-secondary-color mb-3'>
-              <Link to={`/word/${history._id}`}>
+              <Link to={`/word/${favorite._id}`}>
                   
                   <p><span>word in englis: </span>{favorite.word}</p>
                       <p><span>word in hausa: </span>{favorite.wordInHausa}</p>

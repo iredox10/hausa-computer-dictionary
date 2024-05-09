@@ -13,7 +13,7 @@ export default function History() {
   const histories = data && data.history
   return (
     <div>
-      <Title title={`history`} />
+      <Title color={`text-white`} title={`history`} />
       <div className='p-5'>
         {histories &&
           histories.map((history, i) => (

@@ -8,7 +8,6 @@ const useFetch = (url) => {
     const [err, setErr] = useState()
     const { state } = UseAuthContext()
     const token = state.user && state.user.jwt
-    console.log(state.user, token)
     useEffect(() => {
         const cancelTokenSource = axios.CancelToken.source
         const fetch = async () => {
